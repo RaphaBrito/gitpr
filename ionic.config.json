@@ -1,0 +1,7 @@
+{
+  "name": "gitpr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
