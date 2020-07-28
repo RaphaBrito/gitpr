@@ -12,7 +12,7 @@ const Routes = () => {
       <IonRouterOutlet>
         <Route exact path='/Login' component={Login} />
         <Route exact path='/' render={() => <Redirect to='/Login' />} />
-        <Route exact path='/PullRequests' component={PullRequests} />
+        <Route exact path='/PullRequests/:repo' component={PullRequests} />
         <Route exact path='/Home/:id' component={Home} />
       </IonRouterOutlet>
     </IonReactRouter>
