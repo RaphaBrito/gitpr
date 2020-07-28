@@ -19,7 +19,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent class='ion-padding'>
         <IonImg class='img ' src={require('./../assets/icon.png')} />
-        <div className='ion-justify-content-center text'>
+        <div className='text'>
           <h2>Proceed with your</h2>
           <h1>Login</h1>
         </div>
