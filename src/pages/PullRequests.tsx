@@ -1,40 +1,54 @@
 import {
   IonContent,
   IonPage,
-  IonInput,
-  IonButton,
-  IonImg,
   IonGrid,
   IonRow,
   IonCol,
-  IonIcon,
+  IonHeader,
+  IonItem,
+  IonList,
+  IonLabel,
 } from '@ionic/react';
 import React from 'react';
 import './PullRequests.css';
+import { RouteComponentProps } from 'react-router';
+interface PullRequestsPageProps
+  extends RouteComponentProps<{
+    repo: string;
+  }> {}
 
-const PullRequests: React.FC = () => {
+const PullRequests: React.FC<PullRequestsPageProps> = ({ match }) => {
   return (
-    <IonPage>
-      <IonContent class='.ion-justify-content-start ion-padding-start'>
-        <IonImg class='container' src={require('./../assets/icon.png')} />
-        <div>
-          <h3>Proceed with your</h3>
-          <h1>PullRequests</h1>
-        </div>
-
-        <IonGrid>
-          <IonRow class='ion-justify-content-center'>
-            <IonCol size='auto'>
-              <IonInput class='input' placeholder='GitHub Username'></IonInput>
-              <IonIcon name='person' slot='end'></IonIcon>
-            </IonCol>
-          </IonRow>
-          <IonRow class='ion-justify-content-center'>
-            <IonCol size='auto'>
-              <IonButton>PullRequests</IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+    <IonPage className='ion-padding'>
+      <IonHeader>
+        <IonItem>
+          <IonGrid>
+            <IonRow class='user'>
+              <IonCol>
+                <h1>Repo: {match.params.repo}</h1>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonItem>
+      </IonHeader>
+      <IonContent className='ion-padding'>
+        <IonList>
+          <IonItem>
+            <IonLabel>Details of the Pull Request</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Details of the Pull Request</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Details of the Pull Request</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Details of the Pull Request</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Details of the Pull Request</IonLabel>
+          </IonItem>
+        </IonList>
       </IonContent>
     </IonPage>
   );

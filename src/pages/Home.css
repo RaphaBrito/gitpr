@@ -1,0 +1,12 @@
+.user-img {
+  max-width: 30%;
+  height: auto;
+  border-radius: 30px !important;
+  overflow: hidden;
+  float: right;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
