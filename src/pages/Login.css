@@ -1,27 +1,43 @@
-.container {
-  flex: 1;
-  padding: 32;
-  max-width: 40%;
+.img {
+  padding-top: 40px;
+  max-width: 50%;
   height: auto;
 }
 
-.main {
-  flex: 1;
-  background-color: white;
-  padding: 80;
+.div-btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.btn-login {
+  font-size: 20px;
+  width: 50%;
+  text-transform: none;
+}
+
+.label {
+  display: flex;
+  font-size: 20px;
 }
 
 .input {
-  height: 60;
-  border-radius: 10;
-  margin-bottom: 8;
-  padding: 24;
-  font-size: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.center {
-  margin: auto;
-  width: 50%;
-  border: 3px solid green;
-  padding: 10px;
+.text {
+  padding-bottom: 64px;
+  padding-top: 16px;
+}
+
+.text h1 {
+  font-weight: bold;
+  font-size: 38px;
+}
+
+.text h2 {
+  font-size: 16px;
 }

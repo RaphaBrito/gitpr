@@ -4,12 +4,11 @@ import {
   IonInput,
   IonButton,
   IonImg,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonItem,
   IonLabel,
+  IonIcon,
 } from '@ionic/react';
+import { person } from 'ionicons/icons';
 import React, { useState } from 'react';
 import './Login.css';
 
@@ -18,31 +17,26 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent class='.ion-justify-content-start ion-padding'>
-        <IonImg class='container' src={require('./../assets/icon.png')} />
-        <div>
-          <h3>Proceed with your</h3>
+      <IonContent class='ion-padding'>
+        <IonImg class='img ' src={require('./../assets/icon.png')} />
+        <div className='ion-justify-content-center text'>
+          <h2>Proceed with your</h2>
           <h1>Login</h1>
         </div>
-
-        <IonGrid>
-          <IonRow class='ion-justify-content-center'>
-            <IonCol size='auto'>
-              <IonItem>
-                <IonLabel>GitHub Username: </IonLabel>
-                <IonInput
-                  onIonChange={(e) => setUsername(e.detail.value!)}
-                  type='text'
-                ></IonInput>
-              </IonItem>
-            </IonCol>
-          </IonRow>
-          <IonRow class='ion-justify-content-center'>
-            <IonCol size='auto'>
-              <IonButton routerLink={'/Home/' + username}>Login</IonButton>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+        <IonItem class='label'>
+          <IonIcon icon={person} />
+          <IonLabel> GitHub Username: </IonLabel>
+          <IonInput
+            class='input'
+            onIonChange={(e) => setUsername(e.detail.value!)}
+            type='text'
+          ></IonInput>
+        </IonItem>
+        <div className='div-btn-login'>
+          <IonButton class='btn-login' routerLink={'/Home/' + username}>
+            Login
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
