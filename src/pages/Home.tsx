@@ -40,7 +40,10 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
         </IonItem>
       </IonHeader>
       <IonContent className='ion-padding'>
-        <IonList>
+        <div className='text'>
+          <h1>Repositories</h1>
+        </div>
+        <IonList class='item'>
           <IonItem button routerLink={'/PullRequests/Robocin'} detail>
             <IonLabel>Button Item with Detail Arrow</IonLabel>
           </IonItem>
