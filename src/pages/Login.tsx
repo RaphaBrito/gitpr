@@ -1,25 +1,24 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
   IonInput,
   IonButton,
   IonImg,
-  IonThumbnail,
   IonGrid,
   IonRow,
   IonCol,
-  IonIcon,
+  IonItem,
+  IonLabel,
 } from '@ionic/react';
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
+  const [username, setUsername] = useState<string>('');
+
   return (
     <IonPage>
-      <IonContent class='.ion-justify-content-start ion-padding-start'>
+      <IonContent class='.ion-justify-content-start ion-padding'>
         <IonImg class='container' src={require('./../assets/icon.png')} />
         <div>
           <h3>Proceed with your</h3>
@@ -29,13 +28,18 @@ const Home: React.FC = () => {
         <IonGrid>
           <IonRow class='ion-justify-content-center'>
             <IonCol size='auto'>
-              <IonInput class='input' placeholder='GitHub Username'></IonInput>
-              <IonIcon name='person' slot='end'></IonIcon>
+              <IonItem>
+                <IonLabel>GitHub Username: </IonLabel>
+                <IonInput
+                  onIonChange={(e) => setUsername(e.detail.value!)}
+                  type='text'
+                ></IonInput>
+              </IonItem>
             </IonCol>
           </IonRow>
           <IonRow class='ion-justify-content-center'>
             <IonCol size='auto'>
-              <IonButton>Login</IonButton>
+              <IonButton routerLink={'/Home/' + username}>Login</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -44,4 +48,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Login;
