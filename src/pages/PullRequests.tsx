@@ -32,7 +32,10 @@ const PullRequests: React.FC<PullRequestsPageProps> = ({ match }) => {
         </IonItem>
       </IonHeader>
       <IonContent className='ion-padding'>
-        <IonList>
+        <div className='text'>
+          <h1>Pull Requests</h1>
+        </div>
+        <IonList class='item'>
           <IonItem>
             <IonLabel>Details of the Pull Request</IonLabel>
           </IonItem>
