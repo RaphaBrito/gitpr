@@ -21,3 +21,9 @@
 .item {
   font-size: 20px;
 }
+.loading {
+  --background: #222;
+  --spinner-color: #fff;
+
+  color: #fff;
+}

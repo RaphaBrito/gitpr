@@ -9,6 +9,8 @@ import {
   IonList,
   IonLabel,
   IonHeader,
+  useIonViewDidEnter,
+  IonLoading,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
@@ -23,10 +25,15 @@ interface HomePageProps
   }> {}
 
 const Home: React.FC<HomePageProps> = ({ match }) => {
+  const history = useHistory();
+
   const [user, setUser] = useState<IUser>({} as IUser);
   const [repos, setRepos] = useState<IRepository[]>([]);
+  const [showLoading, setShowLoading] = useState(true);
 
-  const history = useHistory();
+  useIonViewDidEnter(() => {
+    setShowLoading(false);
+  });
 
   useEffect(() => {
     (async () => {
@@ -78,6 +85,12 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
             </IonItem>
           ))}
         </IonList>
+        <IonLoading
+          cssClass='loading'
+          isOpen={showLoading}
+          onDidDismiss={() => setShowLoading(false)}
+          message={'Loading Repositories...'}
+        />
       </IonContent>
     </IonPage>
   );
