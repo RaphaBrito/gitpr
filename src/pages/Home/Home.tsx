@@ -12,7 +12,7 @@ import {
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
-import { RouteComponentProps, useRouteMatch } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import api from './../../services/api';
 
 interface HomePageProps
@@ -34,6 +34,9 @@ interface IRepos {
 const Home: React.FC<HomePageProps> = ({ match }) => {
   const [user, setUser] = useState<IUser>({} as IUser);
   const [repos, setRepos] = useState<IRepos[]>([]);
+
+  const history = useHistory();
+
   useEffect(() => {
     async function getUser() {
       const response = await api.get(`users/${match.params.id}`);
@@ -46,12 +49,11 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
     }
 
     getUser();
-  }, []);
+  }, [match.params.id]);
 
   useEffect(() => {
     async function getRepos() {
       const response = await api.get(`users/${match.params.id}/repos`);
-      console.log(response.data);
       setRepos(
         response.data.map((repo: any) => {
           return {
@@ -63,7 +65,7 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
       );
     }
     getRepos();
-  }, [user]);
+  }, [user, match.params.id]);
 
   return (
     <IonPage className='ion-padding'>
@@ -91,7 +93,10 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
               key={repo.id}
               class='item'
               button
-              routerLink={'/PullRequests/Robocin'}
+              onClick={(e) => {
+                e.preventDefault();
+                history.push('/PullRequests', repo);
+              }}
               detail
             >
               <IonLabel>{repo.name}</IonLabel>

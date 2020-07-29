@@ -10,19 +10,14 @@ import {
   IonLabel,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import './PullRequests.css';
-import { RouteComponentProps, useRouteMatch } from 'react-router';
 import api from './../../services/api';
 
-interface PullRequestsPageProps
-  extends RouteComponentProps<{
-    repo: string;
-  }> {}
-
 interface Params {
-  repoName: string;
-  repoId: number;
-  repoOwner: string;
+  name: string;
+  id: number;
+  owner: string;
 }
 
 interface PullRequest {
@@ -32,18 +27,14 @@ interface PullRequest {
 }
 
 const PullRequests: React.FC = () => {
-  const route = useRouteMatch();
-  const routeParams = route.params as Params;
   const [pullRequests, setPullRequests] = useState<PullRequest[]>([]);
-
-  routeParams.repoName = 'app-ideas';
-  routeParams.repoId = 0;
-  routeParams.repoOwner = 'florinpop17';
+  const location = useLocation();
+  const routeParams = location.state as Params;
 
   useEffect(() => {
     async function getPulls() {
       const response = await api.get(
-        `/repos/${routeParams.repoOwner}/${routeParams.repoName}/pulls`
+        `/repos/${routeParams.owner}/${routeParams.name}/pulls`
       );
       setPullRequests(
         response.data.map((pull: any) => {
@@ -65,7 +56,7 @@ const PullRequests: React.FC = () => {
           <IonGrid>
             <IonRow class='user'>
               <IonCol>
-                <h1>{routeParams.repoName}</h1>
+                <h1>{routeParams ? routeParams.name : ''}</h1>
               </IonCol>
             </IonRow>
           </IonGrid>
