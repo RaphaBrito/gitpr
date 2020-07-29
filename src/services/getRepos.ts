@@ -3,7 +3,7 @@ import IRepository from '../models/Repository';
 
 export default async function getRepos(username: string) {
   const response = await api.get(`users/${username}/repos`);
-  const reposObj = response.data.map((repo: any) => {
+  const reposObj: IRepository[] = response.data.map((repo: any) => {
     return {
       name: repo.name,
       id: repo.id,
@@ -11,5 +11,5 @@ export default async function getRepos(username: string) {
     };
   });
 
-  return reposObj as IRepository[];
+  return reposObj;
 }
