@@ -8,6 +8,8 @@ import {
   IonItem,
   IonList,
   IonLabel,
+  IonLoading,
+  useIonViewDidEnter,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -22,9 +24,16 @@ interface Params {
 }
 
 const PullRequests: React.FC = () => {
-  const [pullRequests, setPullRequests] = useState<IPullRequest[]>([]);
   const location = useLocation();
   const routeParams = location.state as Params;
+
+  const [pullRequests, setPullRequests] = useState<IPullRequest[]>([]);
+
+  const [showLoading, setShowLoading] = useState(true);
+
+  useIonViewDidEnter(() => {
+    setShowLoading(false);
+  });
 
   useEffect(() => {
     (async () => {
@@ -57,6 +66,12 @@ const PullRequests: React.FC = () => {
             </IonItem>
           ))}
         </IonList>
+        <IonLoading
+          cssClass='loading'
+          isOpen={showLoading}
+          onDidDismiss={() => setShowLoading(false)}
+          message={'Loading Pull Requests...'}
+        />
       </IonContent>
     </IonPage>
   );

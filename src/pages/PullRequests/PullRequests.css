@@ -19,3 +19,9 @@
   overflow: hidden;
   float: right;
 }
+.loading {
+  --background: #222;
+  --spinner-color: #fff;
+
+  color: #fff;
+}
