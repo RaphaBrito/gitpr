@@ -13,3 +13,9 @@
 .item {
   font-size: 20px;
 }
+
+.icon {
+  border-radius: 30px;
+  overflow: hidden;
+  float: right;
+}
