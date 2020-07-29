@@ -13,7 +13,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { RouteComponentProps, useRouteMatch } from 'react-router';
-import api from './../services/api';
+import api from './../../services/api';
 
 interface HomePageProps
   extends RouteComponentProps<{

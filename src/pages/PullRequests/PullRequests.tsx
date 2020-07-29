@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import './PullRequests.css';
 import { RouteComponentProps, useRouteMatch } from 'react-router';
-import api from './../services/api';
+import api from './../../services/api';
 
 interface PullRequestsPageProps
   extends RouteComponentProps<{
@@ -41,16 +41,10 @@ const PullRequests: React.FC = () => {
   routeParams.repoOwner = 'florinpop17';
 
   useEffect(() => {
-    console.log('Lista de Pulls');
-    console.log(pullRequests);
-  }, [pullRequests]);
-
-  useEffect(() => {
     async function getPulls() {
       const response = await api.get(
         `/repos/${routeParams.repoOwner}/${routeParams.repoName}/pulls`
       );
-      console.log(response.data);
       setPullRequests(
         response.data.map((pull: any) => {
           return {
@@ -71,7 +65,7 @@ const PullRequests: React.FC = () => {
           <IonGrid>
             <IonRow class='user'>
               <IonCol>
-                <h1>Repo: {routeParams.repoName}</h1>
+                <h1>{routeParams.repoName}</h1>
               </IonCol>
             </IonRow>
           </IonGrid>

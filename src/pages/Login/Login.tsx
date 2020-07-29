@@ -18,7 +18,7 @@ const Login: React.FC = () => {
   return (
     <IonPage>
       <IonContent class='ion-padding'>
-        <IonImg class='img ' src={require('./../assets/icon.png')} />
+        <IonImg class='img ' src={require('./../../assets/icon.png')} />
         <div className='text'>
           <h2>Proceed with your</h2>
           <h1>Login</h1>
