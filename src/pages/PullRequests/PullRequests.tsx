@@ -12,7 +12,8 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import './PullRequests.css';
-import api from './../../services/api';
+import { getPullRequests } from './../../services/index';
+import IPullRequest from './../../models/PullRequest';
 
 interface Params {
   name: string;
@@ -20,33 +21,16 @@ interface Params {
   owner: string;
 }
 
-interface PullRequest {
-  title: string;
-  id: number;
-  state: string;
-}
-
 const PullRequests: React.FC = () => {
-  const [pullRequests, setPullRequests] = useState<PullRequest[]>([]);
+  const [pullRequests, setPullRequests] = useState<IPullRequest[]>([]);
   const location = useLocation();
   const routeParams = location.state as Params;
 
   useEffect(() => {
-    async function getPulls() {
-      const response = await api.get(
-        `/repos/${routeParams.owner}/${routeParams.name}/pulls`
-      );
-      setPullRequests(
-        response.data.map((pull: any) => {
-          return {
-            title: pull.title,
-            id: pull.id,
-            state: pull.state,
-          };
-        })
-      );
-    }
-    getPulls();
+    (async () => {
+      const result = await getPullRequests(routeParams.owner, routeParams.name);
+      setPullRequests(result);
+    })();
   }, []);
 
   return (

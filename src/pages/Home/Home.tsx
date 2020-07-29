@@ -13,58 +13,33 @@ import {
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { RouteComponentProps, useHistory } from 'react-router';
-import api from './../../services/api';
+import { getUser, getRepos } from '../../services/index';
+import IUser from './../../models/User';
+import IRepository from '../../models/Repository';
 
 interface HomePageProps
   extends RouteComponentProps<{
     id: string;
   }> {}
 
-interface IUser {
-  login: string;
-  avatar_url: string;
-  name: string;
-}
-interface IRepos {
-  name: string;
-  id: number;
-  owner: string;
-}
-
 const Home: React.FC<HomePageProps> = ({ match }) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const [repos, setRepos] = useState<IRepos[]>([]);
+  const [repos, setRepos] = useState<IRepository[]>([]);
 
   const history = useHistory();
 
   useEffect(() => {
-    async function getUser() {
-      const response = await api.get(`users/${match.params.id}`);
-      const userObj: IUser = {
-        login: response.data.login,
-        avatar_url: response.data.avatar_url,
-        name: response.data.name,
-      };
-      setUser(userObj);
-    }
-
-    getUser();
+    (async () => {
+      const result = await getUser(match.params.id);
+      setUser(result);
+    })();
   }, [match.params.id]);
 
   useEffect(() => {
-    async function getRepos() {
-      const response = await api.get(`users/${match.params.id}/repos`);
-      setRepos(
-        response.data.map((repo: any) => {
-          return {
-            name: repo.name,
-            id: repo.id,
-            owner: repo.owner.login,
-          };
-        })
-      );
-    }
-    getRepos();
+    (async () => {
+      const result = await getRepos(match.params.id);
+      setRepos(result);
+    })();
   }, [user, match.params.id]);
 
   return (
