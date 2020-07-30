@@ -14,5 +14,5 @@ export async function getUser() {
 }
 
 export async function removeUser() {
-  await Storage.remove({ key: 'name' });
+  await Storage.remove({ key: 'username' });
 }

@@ -22,7 +22,7 @@ const Login: React.FC = () => {
   useIonViewWillEnter(() => {
     (async () => {
       const result = await getUser();
-      if (result.value !== '') {
+      if (result.value) {
         history.push(`/Home/${result.value}`);
       }
     })();

@@ -11,6 +11,7 @@ import {
   IonHeader,
   useIonViewDidEnter,
   IonLoading,
+  IonIcon,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
@@ -18,6 +19,8 @@ import { RouteComponentProps, useHistory } from 'react-router';
 import { getUser, getRepos } from '../../services/index';
 import IUser from './../../models/User';
 import IRepository from '../../models/Repository';
+import { exit } from 'ionicons/icons';
+import { removeUser } from './../../storage/saveUser';
 
 interface HomePageProps
   extends RouteComponentProps<{
@@ -55,6 +58,20 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
         <IonItem>
           <IonGrid>
             <IonRow class='user'>
+              <IonCol>
+                <IonItem
+                  button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    (async () => {
+                      await removeUser();
+                      history.push('/login');
+                    })();
+                  }}
+                >
+                  <IonIcon icon={exit} />
+                </IonItem>
+              </IonCol>
               <IonCol>
                 <h1>{user.name}</h1>
               </IonCol>
