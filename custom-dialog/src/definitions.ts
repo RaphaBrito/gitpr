@@ -7,5 +7,5 @@ declare module '@capacitor/core' {
 }
 
 export interface CustomDialogPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  show(options: { message: string }): Promise<{ message: string }>;
 }

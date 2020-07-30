@@ -14,7 +14,7 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { getUser, setUser } from './../../storage/saveUser';
 import { useHistory } from 'react-router';
-import { Plugins } from '@capacitor/core';
+import { showDialog } from '../../plugins/CustomDialog';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
@@ -22,25 +22,8 @@ const Login: React.FC = () => {
   // Criamos uma nova promise: prometemos a contagem dessa promise (após aguardar 3s)
 
   useEffect(() => {
-    console.log('chegou aqui');
     (async () => {
-      const { CustomDialog } = Plugins;
-      const customDialog = CustomDialog;
-
-      await customDialog
-        .echo({
-          value: 'raphael',
-        })
-        .then((res: any) => {
-          console.log('RESPOSTA OK');
-
-          console.log('ok ' + JSON.stringify(res));
-        })
-        .catch((err: any) => {
-          console.log('RESPOSTA ERRO');
-
-          console.log('err ' + err);
-        });
+      await showDialog('Test Dialog');
     })();
   }, []);
 
