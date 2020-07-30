@@ -1,7 +1,8 @@
 import PullRequests from './getPullRequests';
 import Repos from './getRepos';
-import Users from './getUser';
+import { getUserService, isUserService } from './getUser';
 
 export const getRepos = Repos;
-export const getUser = Users;
+export const getUser = getUserService;
+export const isUser = isUserService;
 export const getPullRequests = PullRequests;
