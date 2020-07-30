@@ -1,7 +1,8 @@
 package com.ionicframework.customdialog;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.NativePlugin;
@@ -13,18 +14,27 @@ import com.getcapacitor.PluginMethod;
 public class CustomDialog extends Plugin {
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
+    public void show(PluginCall call) {
+        String message = call.getString("message");
 
-        Context context = this.getContext();
-        CharSequence text = "Hello toast!" + value;
-        int duration = Toast.LENGTH_SHORT;
+        AlertDialog alertDialog = new AlertDialog.Builder(this.getContext()).create();
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        alertDialog.setTitle("Alert!");
+        alertDialog.setMessage(message);
+        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+
+        alertDialog.setButton(Dialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
+
 
         JSObject ret = new JSObject();
-        ret.put("value", value);
+        ret.put("message", message);
         call.success(ret);
     }
 }
