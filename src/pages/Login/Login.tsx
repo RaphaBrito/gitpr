@@ -7,13 +7,33 @@ import {
   IonItem,
   IonLabel,
   IonIcon,
+  useIonViewWillEnter,
+  useIonViewWillLeave,
 } from '@ionic/react';
 import { person } from 'ionicons/icons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
+import { getUser, setUser } from './../../storage/saveUser';
+import { useHistory } from 'react-router';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
+  const history = useHistory();
+  useIonViewWillEnter(() => {
+    (async () => {
+      const result = await getUser();
+      if (result.value !== '') {
+        history.push(`/Home/${result.value}`);
+      }
+    })();
+  });
+
+  function onClickLogin() {
+    (async () => {
+      await setUser(username);
+      history.push(`/Home/${username}`);
+    })();
+  }
 
   return (
     <IonPage>
@@ -33,7 +53,7 @@ const Login: React.FC = () => {
           ></IonInput>
         </IonItem>
         <div className='div-btn-login'>
-          <IonButton class='btn-login' routerLink={'/Home/' + username}>
+          <IonButton class='btn-login' onClick={onClickLogin}>
             Login
           </IonButton>
         </div>
