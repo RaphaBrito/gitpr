@@ -22,7 +22,7 @@ class LoginController {
         history.push(`/Home/${username}`);
       })
       .catch(() => {
-        showDialog('Invalid User.');
+        showDialog('Invalid User!');
       });
   }
 
