@@ -1,0 +1,58 @@
+{
+  "name": "custom-dialog",
+  "version": "0.0.1",
+  "description": "CustomDialog for GitPR Project",
+  "main": "dist/plugin.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "lint": "npm run prettier -- --check ",
+    "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
+    "build": "npm run clean && tsc && rollup -c rollup.config.js",
+    "clean": "rimraf ./dist",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Raphael Brito",
+  "license": "MIT",
+  "devDependencies": {
+    "@capacitor/android": "^2.4.0",
+    "@capacitor/core": "^2.4.0",
+    "@ionic/prettier-config": "^1.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "prettier": "^2.0.5",
+    "prettier-plugin-java": "^0.8.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^2.21.0",
+    "typescript": "~3.8.3"
+  },
+  "peerDependencies": {
+    "@capacitor/core": "^2.4.0"
+  },
+  "files": [
+    "dist/",
+    "android/",
+    "CustomDialog.podspec"
+  ],
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "native"
+  ],
+  "capacitor": {
+    "android": {
+      "src": "android"
+    }
+  },
+  "prettier": "@ionic/prettier-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RaphaBrito/custom-dialog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RaphaBrito/custom-dialog.git/issues"
+  },
+  "dependencies": {
+    "@capacitor/cli": "^2.4.0"
+  }
+}

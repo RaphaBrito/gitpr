@@ -10,14 +10,39 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import { person } from 'ionicons/icons';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { getUser, setUser } from './../../storage/saveUser';
 import { useHistory } from 'react-router';
+import { Plugins } from '@capacitor/core';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const history = useHistory();
+  // Criamos uma nova promise: prometemos a contagem dessa promise (após aguardar 3s)
+
+  useEffect(() => {
+    console.log('chegou aqui');
+    (async () => {
+      const { CustomDialog } = Plugins;
+      const customDialog = CustomDialog;
+
+      await customDialog
+        .echo({
+          value: 'raphael',
+        })
+        .then((res: any) => {
+          console.log('RESPOSTA OK');
+
+          console.log('ok ' + JSON.stringify(res));
+        })
+        .catch((err: any) => {
+          console.log('RESPOSTA ERRO');
+
+          console.log('err ' + err);
+        });
+    })();
+  }, []);
 
   useIonViewWillEnter(() => {
     (async () => {
