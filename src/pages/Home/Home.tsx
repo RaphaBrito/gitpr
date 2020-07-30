@@ -13,7 +13,7 @@ import {
   IonIcon,
   useIonViewWillEnter,
 } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import { RouteComponentProps, useHistory } from 'react-router';
 import IUser from './../../models/User';
