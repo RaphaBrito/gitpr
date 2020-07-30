@@ -9,18 +9,18 @@ import {
   IonList,
   IonLabel,
   IonHeader,
-  useIonViewDidEnter,
   IonLoading,
   IonIcon,
+  useIonViewWillEnter,
 } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import { RouteComponentProps, useHistory } from 'react-router';
-import { getUser, getRepos } from '../../services/index';
 import IUser from './../../models/User';
 import IRepository from '../../models/Repository';
 import { exit } from 'ionicons/icons';
 import { removeUser } from './../../storage/saveUser';
+import HomeController from './../../controllers/HomeController';
 
 interface HomePageProps
   extends RouteComponentProps<{
@@ -34,26 +34,23 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
   const [repos, setRepos] = useState<IRepository[]>([]);
   const [showLoading, setShowLoading] = useState(true);
 
-  useIonViewDidEnter(() => {
-    setShowLoading(false);
+  useIonViewWillEnter(() => {
+    HomeController.getInstance().loadData(
+      match.params.id,
+      setUser,
+      setRepos,
+      setShowLoading
+    );
   });
-
-  useEffect(() => {
-    (async () => {
-      const result = await getUser(match.params.id);
-      setUser(result);
-    })();
-  }, [match.params.id]);
-
-  useEffect(() => {
-    (async () => {
-      const result = await getRepos(match.params.id);
-      setRepos(result);
-    })();
-  }, [user, match.params.id]);
 
   return (
     <IonPage className='ion-padding'>
+      <IonLoading
+        cssClass='loading'
+        isOpen={showLoading}
+        onDidDismiss={() => setShowLoading(false)}
+        message={'Loading Repositories...'}
+      />
       <IonHeader>
         <IonItem>
           <IonGrid>
@@ -65,7 +62,7 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
                     e.preventDefault();
                     (async () => {
                       await removeUser();
-                      history.push('/login');
+                      history.goBack();
                     })();
                   }}
                 >
@@ -73,7 +70,7 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
                 </IonItem>
               </IonCol>
               <IonCol>
-                <h1>{user.name}</h1>
+                <h1>{user.name ? user.name : user.login}</h1>
               </IonCol>
               <IonCol>
                 <IonImg class='user-img' src={user.avatar_url} />
@@ -102,12 +99,6 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
             </IonItem>
           ))}
         </IonList>
-        <IonLoading
-          cssClass='loading'
-          isOpen={showLoading}
-          onDidDismiss={() => setShowLoading(false)}
-          message={'Loading Repositories...'}
-        />
       </IonContent>
     </IonPage>
   );
