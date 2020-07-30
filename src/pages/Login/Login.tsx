@@ -10,37 +10,21 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import { person } from 'ionicons/icons';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
-import { getUser, setUser } from './../../storage/saveUser';
+import LoginController from '../../controllers/LoginController';
 import { useHistory } from 'react-router';
-import { showDialog } from '../../plugins/CustomDialog';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const history = useHistory();
-  // Criamos uma nova promise: prometemos a contagem dessa promise (após aguardar 3s)
-
-  useEffect(() => {
-    (async () => {
-      await showDialog('Test Dialog');
-    })();
-  }, []);
 
   useIonViewWillEnter(() => {
-    (async () => {
-      const result = await getUser();
-      if (result.value) {
-        history.push(`/Home/${result.value}`);
-      }
-    })();
+    LoginController.getInstance().checkIsSavedUser(history);
   });
 
-  function onClickLogin() {
-    (async () => {
-      await setUser(username);
-      history.push(`/Home/${username}`);
-    })();
+  function handleOnClickLogin() {
+    LoginController.getInstance().checkIsValidUser(username, history);
   }
 
   return (
@@ -61,7 +45,7 @@ const Login: React.FC = () => {
           ></IonInput>
         </IonItem>
         <div className='div-btn-login'>
-          <IonButton class='btn-login' onClick={onClickLogin}>
+          <IonButton class='btn-login' onClick={handleOnClickLogin}>
             Login
           </IonButton>
         </div>
