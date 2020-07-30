@@ -9,13 +9,13 @@ import {
   IonList,
   IonLabel,
   IonLoading,
-  useIonViewDidEnter,
+  useIonViewWillEnter,
 } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 import './PullRequests.css';
-import { getPullRequests } from './../../services/index';
 import IPullRequest from './../../models/PullRequest';
+import PullRequestsController from './../../controllers/PullRequestsController';
 
 interface Params {
   name: string;
@@ -31,16 +31,14 @@ const PullRequests: React.FC = () => {
 
   const [showLoading, setShowLoading] = useState(true);
 
-  useIonViewDidEnter(() => {
-    setShowLoading(false);
+  useIonViewWillEnter(() => {
+    PullRequestsController.getInstance().loadData(
+      routeParams.owner,
+      routeParams.name,
+      setPullRequests,
+      setShowLoading
+    );
   });
-
-  useEffect(() => {
-    (async () => {
-      const result = await getPullRequests(routeParams.owner, routeParams.name);
-      setPullRequests(result);
-    })();
-  }, []);
 
   return (
     <IonPage className='ion-padding'>
