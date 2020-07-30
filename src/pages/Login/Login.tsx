@@ -8,10 +8,9 @@ import {
   IonLabel,
   IonIcon,
   useIonViewWillEnter,
-  useIonViewWillLeave,
 } from '@ionic/react';
 import { person } from 'ionicons/icons';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import { getUser, setUser } from './../../storage/saveUser';
 import { useHistory } from 'react-router';
@@ -19,6 +18,7 @@ import { useHistory } from 'react-router';
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const history = useHistory();
+
   useIonViewWillEnter(() => {
     (async () => {
       const result = await getUser();
