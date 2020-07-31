@@ -12,7 +12,7 @@ import {
   useIonViewWillEnter,
 } from '@ionic/react';
 import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import './PullRequests.css';
 import IPullRequest from './../../models/PullRequest';
 import PullRequestsController from './../../controllers/PullRequestsController';
@@ -25,6 +25,7 @@ interface Params {
 
 const PullRequests: React.FC = () => {
   const location = useLocation();
+  const history = useHistory();
   const routeParams = location.state as Params;
 
   const [pullRequests, setPullRequests] = useState<IPullRequest[]>([]);
@@ -36,12 +37,19 @@ const PullRequests: React.FC = () => {
       routeParams.owner,
       routeParams.name,
       setPullRequests,
-      setShowLoading
+      setShowLoading,
+      history
     );
   });
 
   return (
     <IonPage className='ion-padding'>
+      <IonLoading
+        cssClass='loading'
+        isOpen={showLoading}
+        onDidDismiss={() => setShowLoading(false)}
+        message={'Loading Pull Requests...'}
+      />
       <IonHeader>
         <IonItem>
           <IonGrid>
@@ -58,18 +66,14 @@ const PullRequests: React.FC = () => {
           <h1>Pull Requests</h1>
         </div>
         <IonList>
-          {pullRequests.map((pull) => (
-            <IonItem key={pull.id} class='item'>
-              <IonLabel>{pull.title}</IonLabel>
-            </IonItem>
-          ))}
+          {pullRequests
+            ? pullRequests.map((pull) => (
+                <IonItem key={pull.id} class='item'>
+                  <IonLabel>{pull.title}</IonLabel>
+                </IonItem>
+              ))
+            : ''}
         </IonList>
-        <IonLoading
-          cssClass='loading'
-          isOpen={showLoading}
-          onDidDismiss={() => setShowLoading(false)}
-          message={'Loading Pull Requests...'}
-        />
       </IonContent>
     </IonPage>
   );

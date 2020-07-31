@@ -11,5 +11,10 @@ export default async function getPulls(owner: string, name: string) {
       state: pull.state,
     };
   });
-  return pullsObj;
+
+  if (pullsObj.length > 0) {
+    return pullsObj;
+  } else {
+    throw new TypeError('There are no pull requests for this repository!');
+  }
 }

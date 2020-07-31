@@ -1,4 +1,5 @@
 import { getPullRequests } from './../services/index';
+import { showDialog } from '../plugins/CustomDialog';
 
 class PullRequestsController {
   private static instance: PullRequestsController;
@@ -16,11 +17,19 @@ class PullRequestsController {
     owner: string,
     name: string,
     setPullRequests: any,
-    setShowLoading: any
+    setShowLoading: any,
+    history: any
   ) {
-    const result = await getPullRequests(owner, name);
-    setPullRequests(result);
-    setShowLoading(false);
+    await getPullRequests(owner, name)
+      .then((result) => {
+        setPullRequests(result);
+        setShowLoading(false);
+      })
+      .catch(() => {
+        setShowLoading(false);
+        showDialog('There are no pull requests for this repository!');
+        history.goBack();
+      });
   }
 }
 
