@@ -19,7 +19,7 @@ class LoginController {
     isUser(username)
       .then(() => {
         setUser(username);
-        history.push(`/Home/${username}`);
+        history.replace(`/Home/${username}`);
       })
       .catch(() => {
         showDialog('Invalid User!');
@@ -29,7 +29,7 @@ class LoginController {
   async checkIsSavedUser(history: any) {
     const result = await getUser();
     if (result.value) {
-      history.push(`/Home/${result.value}`);
+      history.replace(`/Home/${result.value}`);
     }
   }
 }

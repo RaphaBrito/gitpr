@@ -63,7 +63,7 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
                     e.preventDefault();
                     (async () => {
                       await removeUser();
-                      history.goBack();
+                      history.replace('/Login');
                     })();
                   }}
                 >
