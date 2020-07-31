@@ -14,6 +14,6 @@ export default async function getRepos(username: string) {
   if (reposObj.length > 0) {
     return reposObj;
   } else {
-    throw new TypeError('There are no pull requests for this repository!');
+    throw new TypeError('There are no repositories for this user!');
   }
 }
