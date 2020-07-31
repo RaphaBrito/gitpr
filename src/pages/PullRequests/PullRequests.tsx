@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react';
 import { useLocation, useHistory } from 'react-router';
 import './PullRequests.css';
-import IPullRequest from './../../models/PullRequest';
+import IPullRequest from '../../interfaces/PullRequest';
 import PullRequestsController from './../../controllers/PullRequestsController';
 
 interface Params {

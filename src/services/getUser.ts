@@ -1,5 +1,5 @@
 import api from './api';
-import IUser from '../models/User';
+import IUser from '../interfaces/User';
 
 export async function getUserService(username: string) {
   const response = await api.get(`users/${username}`);

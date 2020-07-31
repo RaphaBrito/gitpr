@@ -16,8 +16,8 @@ import {
 import React, { useState } from 'react';
 import './Home.css';
 import { RouteComponentProps, useHistory } from 'react-router';
-import IUser from './../../models/User';
-import IRepository from '../../models/Repository';
+import IUser from '../../interfaces/User';
+import IRepository from '../../interfaces/Repository';
 import { exit } from 'ionicons/icons';
 import { removeUser } from './../../storage/saveUser';
 import HomeController from './../../controllers/HomeController';

@@ -1,5 +1,5 @@
 import api from './api';
-import IPullRequest from '../models/PullRequest';
+import IPullRequest from '../interfaces/PullRequest';
 
 export default async function getPulls(owner: string, name: string) {
   const response = await api.get(`/repos/${owner}/${name}/pulls`);
