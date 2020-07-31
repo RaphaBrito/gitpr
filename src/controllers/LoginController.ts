@@ -1,6 +1,6 @@
-import { showDialog } from '../plugins/CustomDialog';
-import { isUser } from '../services/index';
-import { getUser, setUser } from '../storage/saveUser';
+import { showDialog } from './../plugins/CustomDialog';
+import { isUser } from './../services/index';
+import { getUser, setUser } from './../storage/saveUser';
 
 class LoginController {
   private static instance: LoginController;
