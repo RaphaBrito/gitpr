@@ -15,7 +15,7 @@ class LoginController {
   private constructor() {}
 
   async checkIsValidUser(username: string, history: any) {
-    console.log('Username: ' + username);
+    username = username.trim();
     isUser(username)
       .then(() => {
         setUser(username);
