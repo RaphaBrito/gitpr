@@ -39,7 +39,8 @@ const Home: React.FC<HomePageProps> = ({ match }) => {
       match.params.id,
       setUser,
       setRepos,
-      setShowLoading
+      setShowLoading,
+      history
     );
   });
 
