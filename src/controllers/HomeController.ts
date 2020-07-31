@@ -32,7 +32,7 @@ class HomeController {
         setShowLoading(false);
         showDialog('There are no repositories for this user!');
         removeUser();
-        history.goBack();
+        history.replace('/Login');
       });
   }
 }
