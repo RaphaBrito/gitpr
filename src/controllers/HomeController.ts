@@ -1,4 +1,5 @@
 import { getUser, getRepos } from '../services/index';
+import { showDialog } from '../plugins/CustomDialog';
 
 class HomeController {
   private static instance: HomeController;
@@ -20,9 +21,15 @@ class HomeController {
   ) {
     const resultUser = await getUser(username);
     setUser(resultUser);
-    const resultRepo = await getRepos(username);
-    setRepos(resultRepo);
-    setShowLoading(false);
+    await getRepos(username)
+      .then((result) => {
+        setRepos(result);
+        setShowLoading(false);
+      })
+      .catch(() => {
+        setShowLoading(false);
+        showDialog('There are no repositories for this user!');
+      });
   }
 }
 

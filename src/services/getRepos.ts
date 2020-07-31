@@ -11,5 +11,9 @@ export default async function getRepos(username: string) {
     };
   });
 
-  return reposObj;
+  if (reposObj.length > 0) {
+    return reposObj;
+  } else {
+    throw new TypeError('There are no pull requests for this repository!');
+  }
 }
